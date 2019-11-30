@@ -9,17 +9,22 @@ class ExpensesCalculation {
 
         if (receipt.getTotal() < 500) {
             receipt.setDiscount(0.05);
-            receipt.setAmountToPay(Math.round(receipt.getTotal() * (1 - receipt.getDiscount()) * 100) / 100D);
+            receipt.setAmountToPay(calculateAmountToPay(receipt));
             return receipt;
         } else if (receipt.getTotal() > 499 && receipt.getTotal() < 1001) {
             receipt.setDiscount(0.1);
-            receipt.setAmountToPay(Math.round(receipt.getTotal() * (1 - receipt.getDiscount()) * 100) / 100D);
+            receipt.setAmountToPay(calculateAmountToPay(receipt));
             return receipt;
         } else if (receipt.getTotal() > 1000) {
             receipt.setDiscount(0.15);
-            receipt.setAmountToPay(Math.round(receipt.getTotal() * (1 - receipt.getDiscount()) * 100) / 100D);
+            receipt.setAmountToPay(calculateAmountToPay(receipt));
             return receipt;
         }
         return receipt;
+    }
+
+    private double calculateAmountToPay(Receipt receipt) {
+        double amountToPay = Math.round(receipt.getTotal() * (1 - receipt.getDiscount()) * 100) / 100D;
+        return amountToPay;
     }
 }
